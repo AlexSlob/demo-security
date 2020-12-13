@@ -2,6 +2,8 @@ package com.alexslo.demosecurity.controller.admin;
 
 import com.alexslo.demosecurity.controller.StudentsInitUtil;
 import com.alexslo.demosecurity.student.Student;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,16 +28,18 @@ public class AdminStudentController {
   }
 
   @GetMapping(path = "{studentId}")
-  public Student getStudent(@PathVariable Integer studentId) {
-    return STUDENTS.stream()
+  public ResponseEntity<Student> getStudent(@PathVariable Integer studentId) {
+    Student result = STUDENTS.stream()
         .filter(student -> student.getStudentId().equals(studentId))
         .findFirst()
         .orElseThrow(() -> new IllegalStateException("Student " + studentId + " does not exist"));
+
+    return new ResponseEntity<>(result, HttpStatus.OK);
   }
 
   @GetMapping
-  public List<Student> getAllStudents() {
-    return STUDENTS;
+  public ResponseEntity<List<Student>> getAllStudents() {
+    return new ResponseEntity<>(STUDENTS, HttpStatus.OK);
   }
 
   @PostMapping
