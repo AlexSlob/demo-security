@@ -25,6 +25,8 @@ import static com.alexslo.demosecurity.security.ApplicationUserRole.STUDENT;
 @RequiredArgsConstructor
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
+  //TODO: learn JWT usage
+
   private final PasswordEncoder passwordEncoder;
   private final ApplicationUserService applicationUserService;
 
